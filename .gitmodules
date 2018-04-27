@@ -1,0 +1,3 @@
+[submodule "deep-image-prior"]
+	path = deep-image-prior
+	url = https://github.com/DmitryUlyanov/deep-image-prior.git
