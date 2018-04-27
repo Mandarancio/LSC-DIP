@@ -1,0 +1,14 @@
+datafolder: "datasets"
+dataset: "OASIS"
+fformat: ".png"
+shape: 
+ - 256
+ - 256
+max_iters: 300
+sampling_range:
+ - -2
+ - 0
+ - 8
+samples: random
+nsamples: 3
+alpha: 0.01

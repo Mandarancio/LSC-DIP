@@ -1,0 +1,23 @@
+datafolder: datasets
+dataset: OASIS
+fformat: .png
+nbands: 4
+resize: none
+testing:
+  reconstruction:
+    sampling_range: [-2, 0, 20]
+  reconstruction_visual:
+    samples: random
+    sampling_range: [-3, 0, 20]
+  robust_reconstruction:
+    noise_range: [-2, 2, 20]
+    sampling_rate: 0.05
+  robust_reconstruction_visual:
+    noise_range: [-2, 2, 20]
+    samples: random
+    sampling_rate: 0.01
+  robust_sampling:
+    noise_rate: 15
+    sampling_range: [-2, 0, 20]
+training: {batch: 100, n_codes: 250, n_levels: 100, show_stats: true, sort: none}
+vectorization: zigzag

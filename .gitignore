@@ -110,3 +110,6 @@ venv.bak/
 
 datasets/*
 lsc/results/*
+
+# gedit backup
+*~
