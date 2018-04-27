@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Common utilities for Multi Band Reconstruction
-Created on Fri Feb  2 18:32:31 2018
+Learnable Compressive Subsampling based on Multi-Band Coding (LSC) library
 
 @author: Martino Ferrari
 @email: manda.mgf@gmail.com
 """
 
+
 import numpy as np
+
 
 from sklearn.cluster import MiniBatchKMeans
 from sklearn.cluster import k_means_
+
 
 
 def version():
@@ -38,7 +40,7 @@ class Codebook:
     Methods
     -------
      * predict
-     * compress
+     * comps
      * reconstruct
 
     Constructor Paramters
@@ -612,7 +614,3 @@ def gen_codebooks(Xsbs, n_codes, mode='ReIm', batch_size=300):
     if mode == 'ReIm':
         return gen_re_im_codebooks(Xsbs, n_codes, batch_size)
     return gen_mag_phs_codebooks(Xsbs, n_codes, batch_size)
-
-
-
-

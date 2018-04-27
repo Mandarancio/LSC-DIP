@@ -34,6 +34,7 @@ dct2 = lambda x : sci_fft.dct(sci_fft.dct(x.T, norm='ortho').T, norm='ortho')
 idct2 = lambda x : sci_fft.idct(sci_fft.idct(x.T, norm='ortho').T, norm='ortho')
 comulate = lambda x : np.array([np.sum(x[:i]) for i in range(len(x))])
 
+
 def spiral_vect(x):
     """
     Vectorialization optimised for the 2d dft.
@@ -54,6 +55,9 @@ def spiral_vect(x):
         for i in range(l):
             X[i] = spiral_vect(x[i])
         return X
+    elif len(x.shape) != 2:
+        raise ValueError("Input must be 2D or 3D.")
+        
     h, w = x.shape
     rs, re = 0, h - 1
     cs, ce = 0, w - 1
@@ -88,7 +92,6 @@ def spiral_vect(x):
     return v
 
 
-
 def spiral_mat(v, shape):
     """
     Inverse-Vectorialization optimised for the 2d dft.
@@ -111,6 +114,11 @@ def spiral_mat(v, shape):
         for i in range(l):
             X[i] = spiral_mat(v[i], shape)
         return X
+    elif len(v.shape) != 1:
+        raise ValueError("Input must be 1D or 2D.")
+    if np.prod(shape) != v.size:
+        raise Exception("Input size does not match output shape.")
+
     h, w  = shape
     rs, re = 0, h - 1
     cs, ce = 0, w - 1
@@ -143,6 +151,7 @@ def spiral_mat(v, shape):
         if j >= l:
             break
     return x
+
 
 def sim_spiral_vect(x):
     """
@@ -318,13 +327,12 @@ def sim_spiral_mat(v, shape):
     return x
 
 
-def zigzag_vect(input):
+def default_vect(input):
     """
-    JPG Zig-Zag vectorialization optimised for the 2d dct.
-     
+    Numpy default vectorization.
     Parameters
     ----------
-    x : np.ndarray
+    input : np.ndarray
         matrix signal
     
     Returns
@@ -332,6 +340,66 @@ def zigzag_vect(input):
     v : np.array
         vectorialized signal
     """
+    if len(input.shape) == 3: 
+        L = len(input)
+        return input.reshape((L, -1))
+    elif len(input.shape) != 2:
+        raise ValueError("Input must be 2D or 3D.")
+    return input.reshape(-1)
+
+
+def default_mat(input, shape):
+    """
+    Numpy default inverse-vectorization.
+    
+    Parameters
+    ----------
+    input : np.array
+        vectorialized signal
+    shape : tuple
+        original shape
+    
+    Returns
+    -------
+    x : np.ndarray
+        matrix form of v
+    """
+    if len(input.shape) == 2: 
+        L = len(input)
+        res = (L, *shape)        
+    elif len(input.shape) != 1:
+        raise ValueError("Input must be 1D or 2D.")
+    else:
+        res = shape
+    if np.prod(res) != input.size:
+        raise Exception("Input size does not match output shape.")
+    return input.reshape(res)
+
+
+def zigzag_vect(input):
+    """
+    JPG Zig-Zag vectorialization optimised for the 2d dct.
+     
+    Parameters
+    ----------
+    input : np.ndarray
+        matrix signal
+    
+    Returns
+    -------
+    v : np.array
+        vectorialized signal
+    """
+    if len(input.shape) == 3: 
+        L = len(input)
+        S = input.shape[1]*input.shape[2]
+        res = np.zeros((L, S), input.dtype)
+        for i in range(L):
+            res[i] = zigzag_vect(input[i])
+        return res
+    elif len(input.shape) != 2:
+        raise ValueError("Input must be 2D or 3D.")
+        
     h = 0
     v = 0
 
@@ -390,7 +458,7 @@ def zigzag_mat(input, shape):
      
     Parameters
     ----------
-    v : np.array
+    input : np.array
         vectorialized signal
     shape : tuple
         original shape
@@ -400,6 +468,16 @@ def zigzag_mat(input, shape):
     x : np.ndarray
         matrix form of v
     """
+    if len(input.shape) == 2: 
+        L = len(input)
+        res = np.zeros((L, *shape), input.dtype)
+        for i in range(L):
+            res[i] = zigzag_mat(input[i], shape)
+        return res
+    elif len(input.shape) != 1:
+        raise ValueError("Input must be 1D or 2D.")
+    if np.prod(shape) != input.size:
+        raise Exception("Input size does not match output shape.")
     vmax, hmax = shape
     h = 0
     v = 0
@@ -499,6 +577,8 @@ def circ_vect(X):
         for i in range(l):
             x[i] = circ_vect(X[i])
         return x
+    elif len(X.shape) != 2:
+        raise ValueError("Input must be 2D or 3D.")
     global __nsupp__
     if __nsupp__ is None or not __nsupp__.size == X.size: 
         __nsupp__ = __gen_nsupp__(X.shape)   
@@ -527,6 +607,11 @@ def circ_mat(v, shape):
         for i in range(l):
             X[i] = circ_mat(v[i], shape)
         return X
+    elif len(v.shape) != 1:
+        raise ValueError("Input must be 1D or 2D.")
+    if np.prod(shape) != v.size:
+        raise Exception("Input size does not match output shape.")
+        
     global __nsupp__
     global __nppus__
     if __nppus__ is None or not __nppus__.size == np.prod(shape):
@@ -558,6 +643,9 @@ def sim_circ_vect(X):
         for i in range(l):
             x[i] = sim_circ_vect(X[i])
         return x
+    elif len(input.shape) != 2:
+        raise ValueError("Input must be 2D or 3D.") 
+        
     global __supp__
     if __supp__ is None or not __supp__.size == X.size: 
         __supp__ = __gen_supp__(X.shape)   
@@ -586,6 +674,11 @@ def sim_circ_mat(v, shape):
         for i in range(l):
             X[i] = sim_circ_mat(v[i], shape)
         return X
+    elif len(v.shape) != 1:
+        raise ValueError("Input must be 1D or 2D.")
+    if np.prod(shape) != v.size:
+        raise Exception("Input size does not match output shape.")
+        
     global __supp__
     global __ppus__
     if __ppus__ is None or not __ppus__.size == np.prod(shape):
@@ -770,3 +863,14 @@ def Psi_dft(l):
     for i, k in enumerate(ks): 
         Psi[i] = np.exp(-2j*np.pi*k*ns/l)
     return Psi
+
+
+def noise(sigma, shape):
+    """Generates complex Gaussian noise."""
+    return np.random.normal(0, sigma, shape) * np.exp(1j * np.random.rand(shape) * 2 * np.pi)
+
+
+def SER(x, xrec):
+    """Computes SER as: ser(x, xrec) = 10 * log10 (sum(x^2) / sum((x-xrec)^2)) 
+    """
+    return 10 * np.log10( np.sum(x**2) / np.sum((x - xrec) ** 2))
