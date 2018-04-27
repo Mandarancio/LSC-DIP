@@ -1,3 +1,6 @@
 [submodule "deep-image-prior"]
 	path = deep-image-prior
 	url = https://github.com/DmitryUlyanov/deep-image-prior.git
+[submodule "dip/deep-image-prior"]
+	path = dip/deep-image-prior
+	url = https://github.com/DmitryUlyanov/deep-image-prior.git
