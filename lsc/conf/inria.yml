@@ -1,5 +1,5 @@
 # data folder
-datafolder: "../datasets/"
+datafolder: "../datasets"
 # dataset name
 dataset: "CELEBa"
 # image format

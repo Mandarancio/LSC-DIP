@@ -109,3 +109,4 @@ venv.bak/
 # datasets subfloders
 
 datasets/*
+lsc/results/*

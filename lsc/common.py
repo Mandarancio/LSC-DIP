@@ -23,6 +23,9 @@ __supp__ = None
 __ppus__ = None
 __nsupp__ = None
 __nppus__ = None
+__zsupp__ = None
+__zppus__ = None
+
 
 # Some lambadas and namespaces
 sci_fft = pyfftw.interfaces.scipy_fftpack
@@ -33,6 +36,57 @@ ifft2 = lambda x : np_fft.ifft2(np_fft.ifftshift(x))
 dct2 = lambda x : sci_fft.dct(sci_fft.dct(x.T, norm='ortho').T, norm='ortho')
 idct2 = lambda x : sci_fft.idct(sci_fft.idct(x.T, norm='ortho').T, norm='ortho')
 comulate = lambda x : np.array([np.sum(x[:i]) for i in range(len(x))])
+
+
+def __gen_supp__ (shape):
+    """Support function for sim-circle"""
+    w, h = shape
+    cx, cy = int(round(w / 2)), int(round(h / 2))
+    x = np.linspace(0, w, w) - cx
+    y = np.linspace(0, h, h) - cy
+    x, y = np.meshgrid(y, x)
+    M = (x**2 + y**2)
+    M1 = M.copy()
+    M1[:,cy:] = np.max(M) + 1
+    M2 = M.copy()
+    M2[:,:cy] = np.max(M) + 1
+    supp = np.zeros(w*h, int)
+    supp[:cy*w] = M1.reshape(-1).argsort()[:cy*w][::-1]
+    supp[cy*w:] = M2.reshape(-1).argsort()[:cy*w]
+    return supp
+
+
+def __gen_nsupp__(shape):
+    """Support function for circle"""
+    w, h = shape
+    cx, cy = int(round(w / 2)), int(round(h / 2))
+    x = np.linspace(0, w, w) - cx
+    y = np.linspace(0, h, h) - cy
+    x, y = np.meshgrid(y, x)
+    M = (x**2 + y**2)
+    return M.reshape(-1).argsort()
+
+def __gen_zsupp__(shape):
+    n, m = shape
+    def lmove(i, j):
+        if j < (m - 1):
+            return max(0, i-1), j+1
+        else:
+            return i+1, j
+    def umove(i, j):
+        if j < (n - 1):
+            return max(0, i-1), j+1
+        else:
+            return i+1, j
+    a = np.zeros((n, m), int)
+    x, y = 0, 0
+    for v in range(n * m):
+        a[y][x] = v
+        if (x + y) & 1:
+            x, y = umove(x, y)
+        else:
+            y, x = lmove(y, x)
+    return inv(a.reshape(-1))
 
 
 def spiral_vect(x):
@@ -400,56 +454,10 @@ def zigzag_vect(input):
     elif len(input.shape) != 2:
         raise ValueError("Input must be 2D or 3D.")
         
-    h = 0
-    v = 0
-
-    vmin = 0
-    hmin = 0
-
-    vmax = input.shape[0]
-    hmax = input.shape[1]
-
-    i = 0
-    output = np.zeros(( vmax * hmax), input.dtype)
-    while ((v < vmax) and (h < hmax)):
-        if ((h + v) % 2) == 0:                 # going up
-            if (v == vmin):
-                output[i] = input[v, h]        # if we got to the first line
-                if (h == hmax):
-                    v = v + 1
-                else:
-                    h = h + 1                        
-                i = i + 1
-            elif ((h == hmax -1 ) and (v < vmax)):   # if we got to the last column
-            	output[i] = input[v, h] 
-            	v = v + 1
-            	i = i + 1
-            elif ((v > vmin) and (h < hmax -1 )):    # all other cases
-            	output[i] = input[v, h] 
-            	v = v - 1
-            	h = h + 1
-            	i = i + 1
-        else:                                    # going down
-        	if ((v == vmax -1) and (h <= hmax -1)):       # if we got to the last line
-        		output[i] = input[v, h] 
-        		h = h + 1
-        		i = i + 1
-        	elif (h == hmin):                  # if we got to the first column
-        		output[i] = input[v, h] 
-        		if (v == vmax -1):
-        			h = h + 1
-        		else:
-        			v = v + 1
-        		i = i + 1
-        	elif ((v < vmax -1) and (h > hmin)):     # all other cases
-        		output[i] = input[v, h] 
-        		v = v + 1
-        		h = h - 1
-        		i = i + 1
-        if ((v == vmax-1) and (h == hmax-1)):          # bottom right element
-        	output[i] = input[v, h] 
-        	break
-    return output
+    global __zsupp__
+    if __zsupp__ is None or not __zsupp__.size == input.size: 
+        __zsupp__ = __gen_zsupp__(input.shape)   
+    return input.reshape(-1)[__zsupp__]
 
 
 def zigzag_mat(input, shape):
@@ -465,7 +473,7 @@ def zigzag_mat(input, shape):
     
     Returns
     -------
-    x : np.ndarray
+    output : np.ndarray
         matrix form of v
     """
     if len(input.shape) == 2: 
@@ -478,84 +486,13 @@ def zigzag_mat(input, shape):
         raise ValueError("Input must be 1D or 2D.")
     if np.prod(shape) != input.size:
         raise Exception("Input size does not match output shape.")
-    vmax, hmax = shape
-    h = 0
-    v = 0
-
-    vmin = 0
-    hmin = 0
-
-    output = np.zeros((vmax, hmax))
-
-    i = 0
-    while ((v < vmax) and (h < hmax)): 
-        if ((h + v) % 2) == 0:                 # going up
-            if (v == vmin):
-                output[v, h] = input[i]        # if we got to the first line
-                if (h == hmax):
-                    v = v + 1
-                else:
-                    h = h + 1                        
-                i = i + 1
-            elif ((h == hmax -1 ) and (v < vmax)):   # if we got to the last column
-                output[v, h] = input[i] 
-                v = v + 1
-                i = i + 1
-            elif ((v > vmin) and (h < hmax -1 )):    # all other cases
-                output[v, h] = input[i] 
-                v = v - 1
-                h = h + 1
-                i = i + 1
-        else:                                    # going down
-            if ((v == vmax -1) and (h <= hmax -1)):       # if we got to the last line
-                output[v, h] = input[i] 
-                h = h + 1
-                i = i + 1
-            elif (h == hmin):                  # if we got to the first column
-                output[v, h] = input[i] 
-                if (v == vmax -1):
-                    h = h + 1
-                else:
-                    v = v + 1
-                i = i + 1
-            elif((v < vmax -1) and (h > hmin)):     # all other cases
-                output[v, h] = input[i] 
-                v = v + 1
-                h = h - 1
-        if ((v == vmax-1) and (h == hmax-1)):          # bottom right element    	
-            output[v, h] = input[i] 
-            break
-    return output
-
-
-def __gen_supp__ (shape):
-    """Support function for sim-circle"""
-    w, h = shape
-    cx, cy = int(round(w / 2)), int(round(h / 2))
-    x = np.linspace(0, w, w) - cx
-    y = np.linspace(0, h, h) - cy
-    x, y = np.meshgrid(y, x)
-    M = (x**2 + y**2)
-    M1 = M.copy()
-    M1[:,cy:] = np.max(M) + 1
-    M2 = M.copy()
-    M2[:,:cy] = np.max(M) + 1
-    supp = np.zeros(w*h, int)
-    supp[:cy*w] = M1.reshape(-1).argsort()[:cy*w][::-1]
-    supp[cy*w:] = M2.reshape(-1).argsort()[:cy*w]
-    return supp
-
-
-def __gen_nsupp__(shape):
-    """Support function for circle"""
-    w, h = shape
-    cx, cy = int(round(w / 2)), int(round(h / 2))
-    x = np.linspace(0, w, w) - cx
-    y = np.linspace(0, h, h) - cy
-    x, y = np.meshgrid(y, x)
-    M = (x**2 + y**2)
-    return M.reshape(-1).argsort()
-
+    global __zsupp__
+    global __zppus__
+    if __zppus__ is None or not __zppus__.size == np.prod(shape):
+        if __zsupp__ is None or not __zsupp__.size == np.prod(shape):
+            __zsupp__ = __gen_zsupp__(shape)
+        __zppus__ = inv(__zsupp__)
+    return input[__zppus__].reshape(shape)
 
 def circ_vect(X):
     """
@@ -617,9 +554,7 @@ def circ_mat(v, shape):
     if __nppus__ is None or not __nppus__.size == np.prod(shape):
         if __nsupp__ is None or not __nsupp__.size == np.prod(shape):
             __nsupp__ = __gen_nsupp__(shape)
-        __nppus__ = np.zeros(__nsupp__.size, int)
-        for i, j in enumerate(__nsupp__):
-            __nppus__[j] = i
+        __nppus__ = inv(__nsupp__)
     return v[__nppus__].reshape(shape)
 
 
@@ -684,9 +619,7 @@ def sim_circ_mat(v, shape):
     if __ppus__ is None or not __ppus__.size == np.prod(shape):
         if __supp__ is None or not __supp__.size == np.prod(shape):
             __supp__ = __gen_supp__(shape)
-        __ppus__ = np.zeros(__supp__.size, int)
-        for i, j in enumerate(__supp__):
-            __ppus__[j] = i
+        __ppus__ = inv(__supp__)
     return v[__ppus__].reshape(shape)
 
 
@@ -770,6 +703,13 @@ def load_images(folder, fformat=".png", size=None):
         i = load_image(folder+'/'+im_path, size)
         dataset.append(i)
     return np.array(dataset)
+
+
+def count_images(folder, fformat='.png'):
+    """Counts all images in a folder."""
+    filt = lambda x, y : isfile(x) and x.endswith(y)
+    onlyfiles = [f for f in sorted(listdir(folder)) if filt(join(folder,f), fformat)]
+    return len(onlyfiles)
 
 
 def inv(order):

@@ -43,6 +43,10 @@ class Conf(object):
             - spiral
             - circular''')
 
+    def save_cfg(self, folder):
+        with open(folder+'/config.yml', 'w') as f:
+            yaml.dump(self.conf, f)
+
             
 def load_conf(path):
     """load configuration."""

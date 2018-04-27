@@ -50,12 +50,11 @@ def training(conf):
 
     shape = training[0].shape
     n = np.prod(shape)
-    N = len(Training)
     
     mag, mag_std, phs, phs_std = common.retrive_basic_stats(Training)
     
     # direct sorting
-    sort = np.arange(N)
+    sort = np.arange(n)
     if conf.training['sort'] == 'random':
         sort = np.random.choice(n, size=n, replace=False)
     elif conf.training['sort'] == 'energy':
@@ -417,7 +416,7 @@ def test_robust_visual(conf, training_result, idx):
     n_bands = conf.nbands 
     # matrxi to vector (m2v) and vector to matrix (v2m) functions
     m2v, v2m = conf.vect_functions()       
-    subcfg = conf.testing['reconstruction_visual']
+    subcfg = conf.testing['robust_reconstruction_visual']
 
     testing, Testing = common.load_dataset(conf.testingset_path(),
                                            conf.fformat, conf.size())
@@ -505,7 +504,7 @@ def test_robust_sampling(conf, training_result):
     n_bands = conf.nbands        
     # matrxi to vector (m2v) and vector to matrix (v2m) functions
     m2v, v2m = conf.vect_functions()
-    subcfg = conf.testing['robust_reconstruction']
+    subcfg = conf.testing['robust_sampling']
 
     # Load testing set
     testing, Testing = common.load_dataset(conf.testingset_path(),
@@ -524,7 +523,6 @@ def test_robust_sampling(conf, training_result):
     
     srange = np.logspace(*subcfg['sampling_range'])
     sigma = subcfg['noise_rate']
-    srange = np.logspace(-2, 0, 20)[:-1]
 
     bk_ser = np.zeros(len(srange))
     fa_ser = np.zeros(len(srange))
@@ -539,7 +537,7 @@ def test_robust_sampling(conf, training_result):
         print(f'\r {i+1:3d}/{len(srange)}', flush=True, end='')
         M = int(round(n*rate))
         m = int(round(M/n_bands))
-        ms = common.num_samples(bands, m)
+        ms = lsc.num_samples(bands, m)
         M = np.sum(ms)
         smalls = [omega[:y] for omega, y in zip(Omegas, ms)]
 

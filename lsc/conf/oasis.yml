@@ -1,5 +1,5 @@
 # data folder
-datafolder: "../datasets/"
+datafolder: "../datasets"
 # dataset name
 dataset: "OASIS"
 # image format
@@ -9,7 +9,7 @@ resize: none
 # number of bands
 nbands: 4
 # options: default (np.reshape(-1)), zigzag, spiral and circular
-vectorization: default
+vectorization: zigzag
 # training option
 training:
     # number of levels for discretization of the spectrum (see Sec. A.2)
