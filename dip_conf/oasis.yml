@@ -4,7 +4,7 @@ fformat: ".png"
 shape: 
  - 256
  - 256
-max_iters: 300
+max_iters: 1300
 sampling_range:
  - -2
  - 0

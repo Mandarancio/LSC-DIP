@@ -69,7 +69,7 @@ if __name__ == '__main__':
     print(' [done]')
 
     """ Load testing set."""
-    print('print testing dataset...', end='', flush=True)
+    print('load testing dataset...', end='', flush=True)
     testing = iu.load_images(f'{datafolder}/{dataset}-testing',
                               fformat=fformat)
     testing = [resize(x, shape, mode='reflect') for x in testing]
