@@ -86,7 +86,7 @@ if __name__ == "__main__":
             plt.show()
 
     if 'robust_reconstruction' in conf.testing:
-        srange, rate, mses, sers = flow.test_robust(conf, training)
+        srange, rate, sers, mses = flow.test_robust(conf, training)
 
         csv = np.zeros((8, srange.size))
         title = 'std,s.r.'
@@ -132,7 +132,7 @@ if __name__ == "__main__":
             plt.show()
 
     if 'robust_sampling' in conf.testing:
-        srange, std, mses, sers = flow.test_robust_sampling(conf, training)
+        srange, std, sers, mses = flow.test_robust_sampling(conf, training)
 
         csv = np.zeros((8, srange.size))
         title = 's.r.,std'
