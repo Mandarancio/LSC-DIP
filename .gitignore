@@ -109,7 +109,8 @@ venv.bak/
 # datasets subfloders
 
 datasets/*
-lsc/results/*
+lsc_results/*
+dip_results/*
 
 # gedit backup
 *~

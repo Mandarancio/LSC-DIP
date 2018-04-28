@@ -54,7 +54,7 @@ if __name__ == "__main__":
             csv[4+i] = ssim
             title += ',ssim_'+names[i]
         np.savetxt(output_dir+'reconstruction.csv',
-                   csv, header=title, delimiter=',', fmt='%.4e')
+                   csv.T, header=title, delimiter=',', fmt='%.4e')
 
         plt.subplot(1, 2, 1)
         for name, mse in zip(names, mses):
@@ -99,7 +99,7 @@ if __name__ == "__main__":
             csv[5+i] = ssim
             title += ',ser_'+names[i]
         np.savetxt(output_dir+'robust_reconstruction.csv',
-                   csv, header=title, delimiter=',', fmt='%.4e')
+                   csv.T, header=title, delimiter=',', fmt='%.4e')
 
         plt.subplot(1, 2, 1)
         for name, mse in zip(names, mses):
@@ -145,7 +145,7 @@ if __name__ == "__main__":
             csv[5+i] = ssim
             title += ',ser_'+names[i]
         np.savetxt(output_dir+'robust_sampling.csv',
-                   csv, header=title, delimiter=',', fmt='%.4e')
+                   csv.T, header=title, delimiter=',', fmt='%.4e')
 
         plt.subplot(1, 2, 1)
         for name, mse in zip(names, mses):
