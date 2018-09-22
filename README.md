@@ -16,6 +16,8 @@ Finally, I explored the possible application in data acquisition systems such as
 
 For such reason, the work was both presented at EUSIPCO 2018 conference [2] ([pdf](http://sip.unige.ch/articles/2018/EUSIPCO2018_TaranO.pdf)) in Rome and submitted for a EU patent. 
 
+A presentation is also available one SlideShare: [link](https://www.slideshare.net/MartinoGiordanoFerra/injecting-image-priors-into-learnable-compressive-subsampling)
+
 ## Results
 
 Some graphical and analytic results are shown below: 
