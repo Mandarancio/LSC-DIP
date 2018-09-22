@@ -14,7 +14,7 @@ The proposed methods have been tested on diverse datasets covering facial images
 
 Finally, I explored the possible application in data acquisition systems such as computer tomography and radio astronomy. The obtained results demostrate that the properties of the proposed methods have a very promising potential for future research and extensions. 
 
-For such reason, the work was both presented at the poster session of the EUSIPCO 2018 conference in Rome and submitted for a EU patent. 
+For such reason, the work was both presented at EUSIPCO 2018 conference [2] [article](http://sip.unige.ch/articles/2018/EUSIPCO2018_TaranO.pdf) in Rome and submitted for a EU patent. 
 
 ## Results
 
@@ -41,6 +41,6 @@ python3 lsc conf.yml
 Some configuration examples are stored in `lsc_conf` and `dip_conf`.
 
 ----
-[1]: L. Baldassarre, Y.-H. Li, J. Scarlett, B. Gözcü, I. Bogunovic, and V. 
-Cevher, “Learning-based compressive subsampling,” IEEE Journal of Selected 
-Topics in Signal Processing, vol. 10, no. 4, pp. 809–822, 2016
+[1]: L. Baldassarre, Y.-H. Li, J. Scarlett, B. Gözcü, I. Bogunovic, and V. Cevher, “Learning-based compressive subsampling,” IEEE Journal of Selected Topics in Signal Processing, vol. 10, no. 4, pp. 809–822, 2016
+
+[2]: M. Ferrari, O. Taran, T. Holotyak, K. Egiazarian, and S. Voloshynovskiy, "Injecting Image Priors into Learnable Compressive Subsampling," in Proc. 26th European Signal Processing Conference (EUSIPCO), Rome, Italy, 2018
