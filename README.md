@@ -16,6 +16,10 @@ Finally, I explored the possible application in data acquisition systems such as
 
 For such reason, the work was both presented at the poster session of the EUSIPCO 2018 conference in Rome and submitted for a EU patent. 
 
+## Results
+
+More raw results can be found on the `results` folder and other can be created by running the different scripts.
+
 
 ## Notebooks
 
