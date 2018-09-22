@@ -14,7 +14,7 @@ The proposed methods have been tested on diverse datasets covering facial images
 
 Finally, I explored the possible application in data acquisition systems such as computer tomography and radio astronomy. The obtained results demostrate that the properties of the proposed methods have a very promising potential for future research and extensions. 
 
-For such reason, the work was both presented at EUSIPCO 2018 conference [2] [article](http://sip.unige.ch/articles/2018/EUSIPCO2018_TaranO.pdf) in Rome and submitted for a EU patent. 
+For such reason, the work was both presented at EUSIPCO 2018 conference [2] ([pdf](http://sip.unige.ch/articles/2018/EUSIPCO2018_TaranO.pdf)) in Rome and submitted for a EU patent. 
 
 ## Results
 
