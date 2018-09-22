@@ -18,6 +18,16 @@ For such reason, the work was both presented at EUSIPCO 2018 conference [2] ([pd
 
 ## Results
 
+Some graphical and analytic results are shown below: 
+
+![MSE and SSIM](https://github.com/Mandarancio/LSC-DIP/blob/master/doc/images/results.png)
+
+The MSE and SSIM measured for different dataset at different sampling rate using the following sub-sampling methods: LSC, DIP [2], f_avg [1] and k-best (not practical).
+
+![Graphical](https://github.com/Mandarancio/LSC-DIP/blob/master/doc/images/graphical_results.png)
+
+Example of recunstraction for different dataset using different acquistion methods: LSC, DIP [2], f_avg [1] and k-best (not practical). 
+
 More raw results can be found on the `results` folder and other can be created by running the different scripts.
 
 
