@@ -12,9 +12,9 @@ The new methods can be applied to many different fields of spectroscopy and Four
 
 The proposed methods have been tested on diverse datasets covering facial images, medical and multi-band astronomical data, using the mean square error and SSIM as a perceptual measure of the quality of the reconstruction. 
 
-Finally, I explored the possible application in data acquisition systems such as computer tomography and radio astronomy. The obtained results demostrate that the properties of the proposed methods have a very promising potential for future research and extensions. 
+Finally, I explored the possible application in data acquisition systems such as computer tomography and radio astronomy. The obtained results demonstrate that the properties of the proposed methods have a very promising potential for future research and extensions. 
 
-For such reason, the work was both presented at EUSIPCO 2018 conference [2] ([pdf](http://sip.unige.ch/articles/2018/EUSIPCO2018_TaranO.pdf)) in Rome and submitted for a EU patent. 
+For such reason, the work was both presented at EUSIPCO 2018 conference [2] ([pdf](http://sip.unige.ch/articles/2018/EUSIPCO2018_TaranO.pdf)) in Rome and submitted for an EU patent. 
 
 A presentation is also available one SlideShare: [link](https://www.slideshare.net/MartinoGiordanoFerra/injecting-image-priors-into-learnable-compressive-subsampling)
 
@@ -28,13 +28,15 @@ The MSE and SSIM measured for different dataset at different sampling rate using
 
 ![Graphical](https://github.com/Mandarancio/LSC-DIP/blob/master/docs/images/graphical_results.png)
 
-Example of recunstraction for different dataset using different acquistion methods: LSC, DIP [2], f_avg [1] and k-best (not practical). 
+Example of reconstruction for different dataset using different acquisition methods: LSC, DIP [2], f_avg [1] and k-best (not practical). 
 
-More raw results can be found on the `results` folder and other can be created by running the different scripts.
+More raw results can be found in the `results` folder and other can be created by running the different scripts.
 
 ## See it in action
 
-If you are interested in testing, using or improving the algorithms checkit out:
+If you are interested in testing, using or improving the algorithms check it out [here](https://github.com/Mandarancio/LSC-DIP) or using `git`:
 ```
 git clone https://github.com/Mandarancio/LSC-DIP.git
 ```
+
+The code is written using `python 3` and few dependencies, it came with few `notebook` with step-by-step documentation and as configurable scripts for batch analysis.
