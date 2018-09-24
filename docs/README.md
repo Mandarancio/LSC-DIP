@@ -1,6 +1,6 @@
 # Compressive Subsampling with Priors
 
-**Author**: Martino Ferrari
+**Author**: Martino Ferrari   
 **Contact**: manda.mgf@gmail.com
 
 ## Presentation
@@ -26,7 +26,7 @@ Some graphical and analytic results are shown below:
 
 The MSE and SSIM measured for different dataset at different sampling rate using the following sub-sampling methods: LSC, DIP [2], f_avg [1] and k-best (not practical).
 
-![Graphical](graphical_results.png)
+![Graphical](images/graphical_results.png)
 
 Example of reconstruction for different dataset using different acquisition methods: LSC, DIP [2], f_avg [1] and k-best (not practical). 
 
