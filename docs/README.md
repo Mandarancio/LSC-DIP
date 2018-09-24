@@ -41,7 +41,7 @@ git clone https://github.com/Mandarancio/LSC-DIP.git
 
 The code is written in `python 3` and few `notebook`s are provided with step-by-step documentation, also a `YAML` configurable script is available  for batch analysis.
 
----
+## Bibliography
 
 [^1]: L. Baldassarre, Y.-H. Li, J. Scarlett, B. Gözcü, I. Bogunovic, and V. Cevher, “Learning-based compressive subsampling,” IEEE Journal of Selected Topics in Signal Processing, vol. 10, no. 4, pp. 809–822, 2016
 
