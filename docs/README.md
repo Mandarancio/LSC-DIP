@@ -39,4 +39,4 @@ If you are interested in testing, using or improving the algorithms check it out
 git clone https://github.com/Mandarancio/LSC-DIP.git
 ```
 
-The code is written using `python 3` and few dependencies, it came with few `notebook` with step-by-step documentation and as configurable scripts for batch analysis.
+The code is written in `python 3` and few `notebook`s are provided with step-by-step documentation, also a `YAML` configurable script is available  for batch analysis.
