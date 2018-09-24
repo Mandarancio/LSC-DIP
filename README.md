@@ -22,11 +22,11 @@ A presentation is also available one SlideShare: [link](https://www.slideshare.n
 
 Some graphical and analytic results are shown below: 
 
-![MSE and SSIM](https://github.com/Mandarancio/LSC-DIP/blob/master/doc/images/results.png)
+![MSE and SSIM](https://github.com/Mandarancio/LSC-DIP/blob/master/docs/images/results.png)
 
 The MSE and SSIM measured for different dataset at different sampling rate using the following sub-sampling methods: LSC, DIP [2], f_avg [1] and k-best (not practical).
 
-![Graphical](https://github.com/Mandarancio/LSC-DIP/blob/master/doc/images/graphical_results.png)
+![Graphical](https://github.com/Mandarancio/LSC-DIP/blob/master/docs/images/graphical_results.png)
 
 Example of recunstraction for different dataset using different acquistion methods: LSC, DIP [2], f_avg [1] and k-best (not practical). 
 
