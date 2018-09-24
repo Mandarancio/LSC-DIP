@@ -1,4 +1,4 @@
-# Compressive Subsampling with Priors
+# Learnable Compressive Subsampling with Priors
 
 **Author**: Martino Ferrari   
 **Contact**: manda.mgf@gmail.com

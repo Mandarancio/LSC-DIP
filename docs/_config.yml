@@ -1,6 +1,6 @@
 theme: jekyll-theme-minimal
 
-title: Learnable Compressive Subsampling with Priors
+title: LSC and DIP
 description: Two methods to inject image priors into Learnable Compressive Subsampling
 logo: images/logo.png
 
