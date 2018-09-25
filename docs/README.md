@@ -16,7 +16,7 @@ Finally, I explored the possible application in data acquisition systems such as
 
 For such reason, the work was both presented at EUSIPCO 2018 conference [^3] ([pdf](http://sip.unige.ch/articles/2018/EUSIPCO2018_TaranO.pdf)) in Rome and submitted for an EU patent. 
 
-A presentation is also available one SlideShare: [link](https://www.slideshare.net/MartinoGiordanoFerra/injecting-image-priors-into-learnable-compressive-subsampling)
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/iVUlBKm8Oh7XK1" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/MartinoGiordanoFerra/injecting-image-priors-into-learnable-compressive-subsampling" title="Injecting image priors into Learnable Compressive Subsampling" target="_blank">Injecting image priors into Learnable Compressive Subsampling</a> </strong> from <strong><a href="https://www.slideshare.net/MartinoGiordanoFerra" target="_blank">Martino Giordano Ferrari</a></strong> </div>
 
 ## Results
 
